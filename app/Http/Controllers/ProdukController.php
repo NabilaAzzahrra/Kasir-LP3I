@@ -48,6 +48,7 @@ class ProdukController extends Controller
             'produk' => $request->input('produk'),
             'harga_jual' => $request->input('harga_jual'),
             'qty' => $request->input('qty'),
+            'status' => 'BELUM',
         ];
 
         Produk::create($data);
