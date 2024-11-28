@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('kode_pembelian');
             $table->date('tgl_pembelian');
             $table->integer('id_supplier');
-            $table->integer('total_bayar');
+            $table->integer('total_bayar')->nullable();
             $table->timestamps();
         });
     }
