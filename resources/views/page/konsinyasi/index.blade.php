@@ -211,4 +211,32 @@
             status.classList.toggle('hidden');
         }
     </script>
+    @if (session('message_add'))
+        <div id="toast-message" class="fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg">
+            {{ session('message_add') }}
+        </div>
+
+        <script>
+            setTimeout(() => {
+                const toast = document.getElementById('toast-message');
+                if (toast) {
+                    toast.remove();
+                }
+            }, 3000); // Toast akan hilang setelah 3 detik
+        </script>
+        @endif
+        @if (session('message_update'))
+            <div id="toast-message" class="fixed top-4 right-4 bg-amber-500 text-white px-4 py-2 rounded shadow-lg">
+                {{ session('message_update') }}
+            </div>
+
+            <script>
+                setTimeout(() => {
+                    const toast = document.getElementById('toast-message');
+                    if (toast) {
+                        toast.remove();
+                    }
+                }, 3000); // Toast akan hilang setelah 3 detik
+            </script>
+        @endif
 </x-app-layout>

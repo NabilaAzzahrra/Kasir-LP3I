@@ -40,7 +40,7 @@ class KonsinyasiController extends Controller
 
         Konsinyasi::create($data);
 
-        return back()->with('message_delete', 'Data Sudah ditambahkan');
+        return back()->with('message_add', 'Data Sudah ditambahkan');
     }
 
     /**
@@ -77,7 +77,7 @@ class KonsinyasiController extends Controller
 
         $datas = Konsinyasi::findOrFail($id);
         $datas->update($data);
-        return back()->with('message_delete', 'Data Sudah diupdate');
+        return back()->with('message_update', 'Data Sudah diupdate');
     }
 
     /**

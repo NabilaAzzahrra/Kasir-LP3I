@@ -79,7 +79,8 @@
                                                 <button type="button"
                                                     class="bg-amber-400 p-3 w-10 h-10 rounded-xl text-white hover:bg-amber-500"
                                                     onclick="editSourceModal(this)" data-modal-target="sourceModal"
-                                                    data-id="{{ $f->id }}" data-konsumen="{{ $f->nama_konsumen }}"
+                                                    data-id="{{ $f->id }}"
+                                                    data-konsumen="{{ $f->nama_konsumen }}"
                                                     data-status="{{ $f->status }}">
                                                     <i class="fi fi-sr-file-edit"></i>
                                                 </button>
@@ -192,7 +193,13 @@
                     })
                     .then(function(response) {
                         // Handle success
-                        location.reload();
+                        // location.reload();
+                        Swal.fire({
+                            title: 'Deleted!',
+                            text: '{{ session('message_delete') }}',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        });
                     })
                     .catch(function(error) {
                         // Handle error
@@ -208,4 +215,25 @@
             status.classList.toggle('hidden');
         }
     </script>
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                title: 'Success!',
+                text: '{{ session('success') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
+    @if (session('message_update'))
+        <script>
+            Swal.fire({
+                title: 'Updated!',
+                text: '{{ session('message_update') }}',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
+
 </x-app-layout>

@@ -38,7 +38,11 @@ class KonsumenController extends Controller
 
         Konsumen::create($data);
 
-        return back()->with('message_delete', 'Data Konsumen Sudah dihapus');
+
+        // Simpan pesan ke session
+        session()->flash('success', 'Data Konsumen berhasil ditambahkan.');
+
+        return back();
     }
 
     /**
@@ -69,7 +73,7 @@ class KonsumenController extends Controller
 
         $datas = Konsumen::findOrFail($id);
         $datas->update($data);
-        return back()->with('message_delete', 'Data Konsumen Sudah dihapus');
+        return back()->with('message_update', 'Data Konsumen Sudah diupdate');
     }
 
     /**
@@ -79,6 +83,7 @@ class KonsumenController extends Controller
     {
         $data = Konsumen::findOrFail($id);
         $data->delete();
-        return back()->with('message_delete','Data Konsumen Sudah dihapus');
+        // Simpan pesan ke session
+        return back()->with('message_delete', 'Data Konsumen sudah dihapus.');
     }
 }
