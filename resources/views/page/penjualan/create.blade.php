@@ -40,44 +40,6 @@
                                         required />
                                 </div>
                             </div>
-                            <div class="flex gap-5">
-                                {{-- <div class="mb-5 w-full">
-                                    <label for="konsumen"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Konsumen</label>
-                                    <select class="js-example-placeholder-single js-states form-control w-full m-6"
-                                        id="id_konsumen" name="id_konsumen" data-placeholder="Pilih Konsumen"
-                                        onchange="updateStatusPembelian()">
-                                        <option value="">Pilih...</option>
-                                        @foreach ($konsumen as $k)
-                                            <option value="{{ $k->id }}" data-status="{{ $k->status }}">
-                                                {{ $k->nama_konsumen }}</option>
-                                        @endforeach
-                                    </select>
-                                </div> --}}
-
-                                <!-- Form untuk Status Pembelian -->
-                                {{-- <div id="status-pembelian-container" class="mb-5 w-full" style="display: none;">
-                                    <label for="status_pembelian"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
-                                        Pembelian</label>
-                                    <select class="js-example-placeholder-single js-states form-control w-full m-6"
-                                        id="status_pembelian" name="status_pembelian"
-                                        data-placeholder="Pilih Status Pembelian">
-                                        <option value="">Pilih...</option>
-                                        <option value="LUNAS">LUNAS</option>
-                                        <option value="PIUTANG">PIUTANG</option>
-                                    </select>
-                                </div>
-
-                                <div id="status-pembelian-text-container" class="mb-5 w-full" style="display: none;">
-                                    <label for="status_pembelian"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
-                                        Pembelian</label>
-                                    <input type="text" id="status_pembeliann" name="status_pembelian"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                         />
-                                </div> --}}
-                            </div>
                             {{-- DETAIL PENJUALAN PRODUK --}}
                             <div class="p-4 bg-gray-100 mb-6 rounded-xl font-bold">
                                 <div class="flex items-center justify-between">
@@ -128,7 +90,7 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Piutang/Kembali</label>
                                     <input type="number" id="piutangKembali" name="piutangKembali"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        required />
+                                        required/>
                                 </div>
                             </div>
                             <button type="submit"
@@ -277,19 +239,27 @@
     <script>
         function updateStatusPembelian() {
             const konsumenSelect = document.getElementById('id_konsumen');
-            const selectedOption = konsumenSelect.options[konsumenSelect.selectedIndex];
-            const statusKonsumen = selectedOption.getAttribute('data-status');
             const totalBayarInput = document.getElementById('total_bayar');
             const totalJualInput = document.getElementById('total_jual');
+            const piutangKembali = document.getElementById('piutangKembali');
+
+            if (!konsumenSelect || !totalBayarInput || !totalJualInput|| !piutangKembali) {
+                console.error("Element tidak ditemukan!");
+                return;
+            }
+
+            const selectedOption = konsumenSelect.options[konsumenSelect.selectedIndex];
+            const statusKonsumen = selectedOption ? selectedOption.getAttribute('data-status') : null;
 
             if (statusKonsumen === 'MAHASISWA') {
-                // Jika status konsumen adalah mahasiswa
-                totalBayarInput.value = totalJualInput.value; // Isi dengan nilai total jual
-                totalBayarInput.readonly = true; // Nonaktifkan input
+                totalBayarInput.value = totalJualInput.value || 0;
+                totalBayarInput.readOnly = true;
+                piutangKembali.value = 0;
+                piutangKembali.readOnly = true;
             } else {
-                // Jika status konsumen bukan mahasiswa
-                totalBayarInput.value = ''; // Kosongkan nilai
-                totalBayarInput.readonly = false; // Aktifkan kembali input
+                totalBayarInput.value = '';
+                totalBayarInput.readOnly = false;
+                piutangKembali.readOnly = true;
             }
         }
     </script>

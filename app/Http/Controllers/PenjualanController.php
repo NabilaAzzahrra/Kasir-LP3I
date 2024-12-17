@@ -77,9 +77,9 @@ class PenjualanController extends Controller
 
         // ============LOGIKA STATUS PEMBAYARAN========== //
 
-        if($request->input('total_bayar') < $request->input('total_jual')){
+        if ($request->input('total_bayar') < $request->input('total_jual')) {
             $statusPembelian = 'PIUTANG';
-        }else{
+        } else {
             $statusPembelian = 'LUNAS';
         }
 
@@ -94,7 +94,6 @@ class PenjualanController extends Controller
             'total_jual' => $request->input('total_jual'),
             'id_user' => Auth::user()->id,
         ];
-
         Penjualan::create($data);
 
         return redirect()
